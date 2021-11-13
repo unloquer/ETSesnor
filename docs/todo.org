@@ -2,5 +2,6 @@
 ** codigo
 *** estados multiples de la matriz
     crear 2 estados alto y bajo para crear un condicional para eso 
-** mas modular
+** mas legible
+ sisntetisar la informacio
    
