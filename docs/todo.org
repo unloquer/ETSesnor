@@ -1,7 +1,7 @@
 * todo
-** codigo
-*** estados multiples de la matriz
-    crear 2 estados alto y bajo para crear un condicional para eso 
-** mas legible
- sisntetisar la informacio
+** código
+*** estados múltiples de la matriz
+    crear 2 estados, alto y bajo, para crear un condicional para eso 
+** más legible
+ sintetizar la información
    
