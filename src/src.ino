@@ -20,6 +20,9 @@ const uint8_t matrixWidth = 8;
 const uint8_t matrixHeight = 8;
 #define NUM_LEDS (matrixWidth * matrixHeight)
 
+#define ESCENAS 3
+#define FRAMES 1
+
 int BRIGHTNESS = 20;
 CRGB leds[matrixWidth * matrixHeight];
 
@@ -43,80 +46,47 @@ void setup() {
   FastLED.setBrightness(BRIGHTNESS);
 }
 
-#define ESCENAS1 2
-CRGB matrix1[ESCENAS1][8][8] = {
+CRGB matrix[ESCENAS][FRAMES][matrixHeight][matrixWidth] = {
+{
   {
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {verde, negro, negro,negro, negro, negro, negro,verde},
+    {negro, verde, negro,negro, negro, negro, verde,negro},
+    {negro, negro, verde,verde, verde, verde, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
   },
   {
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-  },
-};
-
-#define ESCENAS2 2
-CRGB matrix2[ESCENAS2][8][8] = {
-  {
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-  },
     {
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-  },
-};
-
-#define ESCENAS3 2
-CRGB matrix3[ESCENAS3][8][8] = {
-  {
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,amarillo, amarillo, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
   },
   {
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
+    {
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,rojo, rojo, rojo, negro,negro},
+    {negro, rojo, negro,negro, negro, negro, rojo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
   },
 };
 
 void loop() {
-  unsigned long startMillis = millis(); // Start of sample window
+  unsigned long startMillis = millis();
   unsigned int peakToPeak = 0;
 
   unsigned int signalMax = 0;
@@ -140,33 +110,20 @@ void loop() {
 
   for (int i = 0; i < matrixHeight; i++) {
     for (int j = 0; j < matrixWidth; j++) {
-      // microfono
-      // if (changeAnimation < rangeMin) {
-      //   leds[i * matrixWidth + j] = matrix1[animator % ESCENAS1][i][j];
-      // } else if (changeAnimation > rangeMiddleMin && changeAnimation < rangeMiddleMax) {
-      //   leds[i * matrixWidth + j] = matrix2[animator % ESCENAS2][i][j];
-      // } else if (changeAnimation > rangleMax) {
-      //   leds[i * matrixWidth + j] = matrix3[animator % ESCENAS3][i][j];
-      // }
-      // contador
-      if (animator < rangeMin) {
-        leds[i * matrixWidth + j] = matrix1[animator % ESCENAS1][i][j];
-      } else if (animator > rangeMiddleMin && animator < rangeMiddleMax) {
-        leds[i * matrixWidth + j] = matrix2[animator % ESCENAS2][i][j];
-      } else if (animator > rangleMax) {
-        leds[i * matrixWidth + j] = matrix3[animator % ESCENAS3][i][j];
+      if (animator < rangeMin) { /*
+tenga en cuenta porcentajes y el micfrono para hacer una funcion
+
+        */
       }
-      
-      // if (changeAnimation < 10) {
-      //   FastLED.setBrightness(0);
-      //   FastLED.clear();
-      // } else {
-      //   FastLED.setBrightness(100);
-      // }
+        leds[i * matrixWidth + j] = matrix[0][animator % FRAMES][i][j];
+      } else if (animator > rangeMiddleMin && animator < rangeMiddleMax) {
+        leds[i * matrixWidth + j] = matrix[1][animator % FRAMES][i][j];
+      } else if (animator > rangleMax) {
+        leds[i * matrixWidth + j] = matrix[2][animator % FRAMES][i][j];
+      }
       FastLED.show();
     }
   }
-
   animator = (animator + 1) % 100;
   Serial.print("map value: ");
   Serial.println(changeAnimation);
