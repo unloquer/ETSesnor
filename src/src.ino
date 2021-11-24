@@ -33,6 +33,9 @@ unsigned int sample;
 int inputMin = -2;
 int inputMax = 110;
 
+int micMaxValue=0;
+int part=0;
+
 int rangeMin = 20;
 
 int rangeMiddleMin = 21;
@@ -85,6 +88,25 @@ CRGB matrix[ESCENAS][FRAMES][matrixHeight][matrixWidth] = {
   },
 };
 
+
+void cambioLed(int c){
+  if(micMaxValue<c){
+    micMaxValue=c;
+    part=micMaxValue/ESCENAS;
+    }
+    for (int i = 0; i < matrixHeight; i++) {
+      for (int j = 0; j < matrixWidth; j++) {
+      if (c<part*1) { 
+        leds[i * matrixWidth + j] = matrix[0][animator % FRAMES][i][j];
+      } else if (c>part*1&&c<part*2) {
+        leds[i * matrixWidth + j] = matrix[1][animator % FRAMES][i][j];
+      } else if (c>part*2) {
+        leds[i * matrixWidth + j] = matrix[2][animator % FRAMES][i][j];
+      }
+      FastLED.show();
+     }
+    }
+}
 void loop() {
   unsigned long startMillis = millis();
   unsigned int peakToPeak = 0;
@@ -108,22 +130,8 @@ void loop() {
   peakToPeak = signalMax - signalMin;
   int changeAnimation = map(peakToPeak, inputMin, inputMax, 0, 100);
 
-  for (int i = 0; i < matrixHeight; i++) {
-    for (int j = 0; j < matrixWidth; j++) {
-      if (animator < rangeMin) { /*
-tenga en cuenta porcentajes y el micfrono para hacer una funcion
-
-        */
-      }
-        leds[i * matrixWidth + j] = matrix[0][animator % FRAMES][i][j];
-      } else if (animator > rangeMiddleMin && animator < rangeMiddleMax) {
-        leds[i * matrixWidth + j] = matrix[1][animator % FRAMES][i][j];
-      } else if (animator > rangleMax) {
-        leds[i * matrixWidth + j] = matrix[2][animator % FRAMES][i][j];
-      }
-      FastLED.show();
-    }
-  }
+  cambioLed(changeAnimation);
+  delay(500);
   animator = (animator + 1) % 100;
   Serial.print("map value: ");
   Serial.println(changeAnimation);
