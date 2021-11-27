@@ -21,7 +21,7 @@ const uint8_t matrixHeight = 8;
 #define NUM_LEDS (matrixWidth * matrixHeight)
 
 #define ESCENAS 3
-#define FRAMES 1
+#define FRAMES 6
 
 int BRIGHTNESS = 20;
 CRGB leds[matrixWidth * matrixHeight];
@@ -51,7 +51,7 @@ void setup() {
 
 CRGB matrix[ESCENAS][FRAMES][matrixHeight][matrixWidth] = {
 {
-  {
+  {/*1*/
     {negro, negro, negro,negro, negro, negro, negro,negro},
     {negro, negro, verde,negro, negro, verde, negro,negro},
     {negro, negro, verde,negro, negro, verde, negro,negro},
@@ -60,10 +60,62 @@ CRGB matrix[ESCENAS][FRAMES][matrixHeight][matrixWidth] = {
     {negro, verde, negro,negro, negro, negro, verde,negro},
     {negro, negro, verde,verde, verde, verde, negro,negro},
     {negro, negro, negro,negro, negro, negro, negro,negro},
+    },/*2*/
+    {
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {verde, negro, negro,negro, negro, negro, negro,verde},
+    {negro, verde, negro,negro, negro, negro, verde,negro},
+    {negro, negro, verde,verde, verde, verde, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },/*3*/
+    {
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {verde, negro, negro,negro, negro, negro, negro,verde},
+    {negro, verde, negro,negro, negro, negro, verde,negro},
+    {negro, negro, verde,verde, verde, verde, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },/*4*/
+    {
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {verde, negro, negro,negro, negro, negro, negro,verde},
+    {negro, verde, negro,negro, negro, negro, verde,negro},
+    {negro, negro, verde,verde, verde, verde, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },/*5*/
+    {
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, negro, negro,negro},
+    {verde, negro, negro,negro, negro, negro, negro,verde},
+    {negro, verde, negro,negro, negro, negro, verde,negro},
+    {negro, negro, verde,verde, verde, verde, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*6*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, negro, negro,negro},
+    {verde, negro, negro,negro, negro, negro, negro,verde},
+    {negro, verde, negro,negro, negro, negro, verde,negro},
+    {negro, negro, verde,verde, verde, verde, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
     },
   },
+
+  
   {
-    {
+    {/*1*/
     {negro, negro, negro,negro, negro, negro, negro,negro},
     {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
     {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
@@ -73,13 +125,113 @@ CRGB matrix[ESCENAS][FRAMES][matrixHeight][matrixWidth] = {
     {negro, amarillo, amarillo,amarillo, amarillo, amarillo, amarillo,negro},
     {negro, negro, negro,negro, negro, negro, negro,negro},
     },
+    {/*2*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,amarillo, amarillo, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*3*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,amarillo, amarillo, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*4*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,amarillo, amarillo, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*5*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, amarillo,negro, negro, amarillo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,amarillo, amarillo, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*6*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,negro, negro, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,amarillo, amarillo, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
   },
   {
-    {
+    {/*1*/
     {negro, negro, negro,negro, negro, negro, negro,negro},
     {negro, negro, rojo,negro, negro, rojo, negro,negro},
     {negro, negro, rojo,negro, negro, rojo, negro,negro},
     {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,rojo, rojo, rojo, negro,negro},
+    {negro, rojo, negro,negro, negro, negro, rojo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*2*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,rojo, rojo, rojo, negro,negro},
+    {negro, rojo, negro,negro, negro, negro, rojo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*3*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,rojo, rojo, rojo, negro,negro},
+    {negro, rojo, negro,negro, negro, negro, rojo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*4*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,rojo, rojo, rojo, negro,negro},
+    {negro, rojo, negro,negro, negro, negro, rojo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*5*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,rojo, rojo, rojo, negro,negro},
+    {negro, rojo, negro,negro, negro, negro, rojo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
+    {/*6*/
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, rojo, negro,rojo, rojo, negro, rojo,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, rojo, negro,rojo, rojo, negro, rojo,negro},
     {negro, negro, negro,negro, negro, negro, negro,negro},
     {negro, negro, rojo,rojo, rojo, rojo, negro,negro},
     {negro, rojo, negro,negro, negro, negro, rojo,negro},
@@ -91,7 +243,7 @@ CRGB matrix[ESCENAS][FRAMES][matrixHeight][matrixWidth] = {
 
 void cambioLed(int c){
   if(micMaxValue<c){
-    micMaxValue=c;
+    micMaxValue=800;
     part=micMaxValue/ESCENAS;
     }
     for (int i = 0; i < matrixHeight; i++) {
@@ -138,3 +290,7 @@ void loop() {
   Serial.print("peak value: ");
   Serial.println(peakToPeak);
 }
+/*metas
+ruido
+caritas con animacion 
+*/
