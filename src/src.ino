@@ -20,7 +20,12 @@ const uint8_t matrixWidth = 8;
 const uint8_t matrixHeight = 8;
 #define NUM_LEDS (matrixWidth * matrixHeight)
 
+#define ESCENAS 3
+#define FRAMES 1
+
+int counter=0;
 int BRIGHTNESS = 20;
+
 CRGB leds[matrixWidth * matrixHeight];
 
 int animator = 0;
@@ -29,6 +34,9 @@ unsigned int sample;
 
 int inputMin = -2;
 int inputMax = 110;
+
+int micMaxValue=0;
+int part=0;
 
 int rangeMin = 20;
 
@@ -43,80 +51,78 @@ void setup() {
   FastLED.setBrightness(BRIGHTNESS);
 }
 
-#define ESCENAS1 2
-CRGB matrix1[ESCENAS1][8][8] = {
+CRGB matrix[ESCENAS][FRAMES][matrixHeight][matrixWidth] = {
   {
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-    {azul, azul, azul, azul, azul, azul, azul, azul},
-  },
-  {
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-    {azul, negro, azul, negro, azul, negro, azul, negro},
-  },
-};
-
-#define ESCENAS2 2
-CRGB matrix2[ESCENAS2][8][8] = {
-  {
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-    {verde, verde, verde, verde, verde, verde, verde, verde},
-  },
     {
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-    {verde, negro, negro, negro, verde, negro, verde, negro},
-  },
-};
-
-#define ESCENAS3 2
-CRGB matrix3[ESCENAS3][8][8] = {
-  {
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
-    {rojo, rojo, rojo, rojo, rojo, rojo, rojo, rojo},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, negro, negro,negro},
+    {negro, negro, verde,negro, negro, verde, negro,negro},
+    {negro, negro, verde,negro, negro, negro, negro,negro},
+    {verde, negro, negro,negro, negro, negro, negro,verde},
+    {negro, verde, negro,negro, negro, negro, verde,negro},
+    {negro, negro, verde,verde, verde, verde, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
   },
   {
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
-    {negro, negro, rojo, rojo, negro, negro, rojo, negro},
+    {
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,negro, negro, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, amarillo, amarillo,amarillo, amarillo, amarillo, amarillo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    },
   },
+  {
+    {
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, rojo, negro,rojo, rojo, negro, rojo,negro},
+    {negro, negro, rojo,negro, negro, rojo, negro,negro},
+    {negro, rojo, negro,rojo, rojo, negro, rojo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+    {negro, negro, rojo,rojo, rojo, rojo, negro,negro},
+    {negro, rojo, negro,negro, negro, negro, rojo,negro},
+    {negro, negro, negro,negro, negro, negro, negro,negro},
+  },
+ },
 };
 
+
+void cambioLed(int c){
+  int primo=103;
+  int primo2=29;
+  if(micMaxValue<c){
+    micMaxValue=800;
+    part=micMaxValue/ESCENAS;
+   /*this is a disorder*/
+    }
+    counter=0;
+    for (int i = 0; i < matrixHeight; i++) {
+    for (int j = 0; j < matrixWidth; j++) {
+      counter=counter+1;
+      if(c<part*1){
+        matrix[0][0][j][i]=CRGB(0,128,(primo*counter+c)%255 );
+        }
+     else if (c>part*1&&c<part*2) {
+        matrix[0][0][j][i]=CRGB((primo2*counter+c)%220,0,(primo2*counter+c)%255);
+      }else if (c>part*2) {
+       matrix[0][0][j][i]=CRGB((primo*counter+c)%255,(primo2*counter+c)%10,0 );
+        }
+      }
+    }
+    
+    for (int i = 0; i < matrixHeight; i++) {
+      for (int j = 0; j < matrixWidth; j++) {
+        leds[i * matrixWidth + j] = matrix[0][0][i][j];
+      FastLED.show();
+     }
+    }
+}
 void loop() {
-  unsigned long startMillis = millis(); // Start of sample window
+  unsigned long startMillis = millis();
   unsigned int peakToPeak = 0;
 
   unsigned int signalMax = 0;
@@ -137,39 +143,16 @@ void loop() {
 
   peakToPeak = signalMax - signalMin;
   int changeAnimation = map(peakToPeak, inputMin, inputMax, 0, 100);
-
-  for (int i = 0; i < matrixHeight; i++) {
-    for (int j = 0; j < matrixWidth; j++) {
-      // microfono
-      // if (changeAnimation < rangeMin) {
-      //   leds[i * matrixWidth + j] = matrix1[animator % ESCENAS1][i][j];
-      // } else if (changeAnimation > rangeMiddleMin && changeAnimation < rangeMiddleMax) {
-      //   leds[i * matrixWidth + j] = matrix2[animator % ESCENAS2][i][j];
-      // } else if (changeAnimation > rangleMax) {
-      //   leds[i * matrixWidth + j] = matrix3[animator % ESCENAS3][i][j];
-      // }
-      // contador
-      if (animator < rangeMin) {
-        leds[i * matrixWidth + j] = matrix1[animator % ESCENAS1][i][j];
-      } else if (animator > rangeMiddleMin && animator < rangeMiddleMax) {
-        leds[i * matrixWidth + j] = matrix2[animator % ESCENAS2][i][j];
-      } else if (animator > rangleMax) {
-        leds[i * matrixWidth + j] = matrix3[animator % ESCENAS3][i][j];
-      }
-      
-      // if (changeAnimation < 10) {
-      //   FastLED.setBrightness(0);
-      //   FastLED.clear();
-      // } else {
-      //   FastLED.setBrightness(100);
-      // }
-      FastLED.show();
-    }
-  }
-
+  FastLED.setBrightness(80);
+  cambioLed(changeAnimation);
+  delay(100-((peakToPeak/600)*100));
   animator = (animator + 1) % 100;
   Serial.print("map value: ");
   Serial.println(changeAnimation);
   Serial.print("peak value: ");
   Serial.println(peakToPeak);
 }
+/*metas
+ruido
+caritas con animacion 
+*/
